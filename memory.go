@@ -1,7 +1,5 @@
 package cache
 
-import "unsafe"
-
 type MemoryCache struct {
 
 }
@@ -11,6 +9,6 @@ type MemoryCache struct {
 //}
 
 
-func (mem *MemoryCache) GetSize() {
-	return unsafe.Sizeof(mem)
-}
+//func (mem *MemoryCache) GetSize() {
+//	return unsafe.Sizeof(mem)
+//}
