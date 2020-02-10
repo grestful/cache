@@ -26,23 +26,39 @@ Command(args... string) error
 */
 
 func (rc *RedisCache) GetBytes(key string) []byte {
-	return nil
+	s, e := rc.client.Get(key).Bytes()
+	if e != nil {
+		return nil
+	}
+	return s
 }
 
 func (rc *RedisCache) GetString(key string) string {
-	return ""
+	s, e := rc.client.Get(key).Result()
+	if e != nil {
+		return ""
+	}
+	return s
 }
 
 func (rc *RedisCache) GetMap(key string) map[string]string {
-	return nil
+	m, e := rc.client.HGetAll(key).Result()
+	if e != nil {
+		return nil
+	}
+	return m
 }
 
 func (rc *RedisCache) GetList(key string) []string {
-	return nil
+	l, e := rc.client.LRange(key, 0, -1).Result()
+	if e != nil {
+		return nil
+	}
+	return l
 }
 
-func (rc *RedisCache) GetValue(key string, val *interface{}) error {
-	return nil
+func (rc *RedisCache) GetValue(key string) (string, error) {
+	return rc.client.Get(key).Result()
 }
 
 func (rc *RedisCache) SetValue(key string, val interface{}, ex time.Duration) error {
@@ -68,7 +84,7 @@ func (rc *RedisCache) Command(args ...string) error {
 	return rc.client.Do(args).Err()
 }
 
-func (rc *RedisCache) SetList(key string, val... interface{}) error {
+func (rc *RedisCache) SetList(key string, val ...interface{}) error {
 	rc.client.LPush(key, val...)
 	return nil
 }
