@@ -32,11 +32,11 @@ func TestMemoryCache_GetSize(t *testing.T) {
 	//fmt.Println("substr:")
 	//fmt.Println(substrRange(name, -1, 1))
 	start := time.Now()
-	for i:=0; i< 100000; i++ {
+	for i := 0; i < 100000; i++ {
 		substr(name, 0, 1)
 	}
 	middle := time.Now()
-	for i:=0; i< 100000; i++ {
+	for i := 0; i < 100000; i++ {
 		substrRange(name, 0, 1)
 	}
 	end := time.Now()
@@ -99,5 +99,5 @@ func substr(str string, start, length int) (string, error) {
 	for i := start; i < length; i++ {
 		sb.WriteRune(uStr.At(i))
 	}
-	return sb.String(),nil
+	return sb.String(), nil
 }
